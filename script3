@@ -1,0 +1,43 @@
+[root@ip-172-31-39-230 project1]# vi script3
+
+cat << EOF
+Usage: ${0} {-c|--create|-h|--help|-d|--delete|-v|--version} <filename>
+
+OPTIONS:
+        -c | --create   Create a new file
+        -h | --help     Display the command help
+        -d | --delete   Deletes file
+        -v | --version  Displays version
+
+Examples:
+        Create a new file:
+                $ ${0} -c foo.txt
+
+        Delete a file:
+                $ ${0} -d foo.txt
+
+        Display help:
+                $ ${0} -h
+
+        Display Version
+                $ ${0} -v
+EOF
+}
+
+case "$ACTION" in
+        -h|--help)
+                display_help
+                ;;
+        -c|--create)
+                create_file "${2:-server}"
+                ;;
+        -d|--delete)
+                delete_file "${2:-server}"
+                ;;
+        -v|--version)
+                show_version "$2:-server}"
+                ;;
+        *)
+        echo "Usage ${0} {-c|-h|-d|-v}"
+        exit 1
+esac
